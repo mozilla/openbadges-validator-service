@@ -1,0 +1,11 @@
+textarea.assertion,
+textarea.response {
+  font-family: monospace;
+  height: 350px;
+}
+h2.status.valid {
+  color: rgb(20, 150, 20);
+}
+h2.status.invalid {
+  color: rgb(150, 20, 20);
+}
