@@ -1,0 +1,24 @@
+{
+  "name": "openbadges-validator-service",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Web frontent for openbadges-validator",
+  "main": "app.js",
+  "dependencies": {
+    "dataurl": "~0.1.0",
+    "express": "~3.1.0",
+    "openbadges-validator": "~0.0.21"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mozilla/openbadges-validator-service.git"
+  },
+  "author": "Brian J. Brennan",
+  "license": "MPL 2.0",
+  "readmeFilename": "README.md",
+  "gitHead": "4959c490fbabcbadcfe5e1926972a2b1fa741f2a"
+}
