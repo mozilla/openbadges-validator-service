@@ -29,27 +29,20 @@
         <textarea class="assertion" name="assertion" placeholder="paste your assertion here">{{ assertionString }}</textarea>
       {% endif %}
         <input class="button radius" type="submit" value="Check Validity">
+        <img class="spinner" src="/img/loader.gif" />
       </form>
     </div>
   </div>
 
-  {% if response %}
   <div class="row" id="js-result-container">
-    <div class="large-12 columns">
-      <h2 class="status {{ response.status }}">{{ response.status|capitalize }}</h2>
-
-      {% if valid %}
-        <h3 class="version">Spec Version: {{ response.info.version }}</h3>
-      {% else %}
-        <h3 class="reason">Reason: {{response.reason}}</h3>
-      {% endif %}
-
-      <hr>
-      <textarea class="response js-response">{{ response|pprint }}</textarea>
-    </div>
-    {% endif %}
-
+  {% if response %}
+    {% include "response.html" %}
+  {% endif %}
   </div>
+
+  <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+  <script src="/js/vendor/spin.min.js"></script>
+  <script src="/js/app.js"></script>
 
 </body>
 </html>

@@ -9,3 +9,8 @@ h2.status.valid {
 h2.status.invalid {
   color: rgb(150, 20, 20);
 }
+.spinner {
+  display: none;
+  vertical-align: center;
+  margin-left: 20px;
+}

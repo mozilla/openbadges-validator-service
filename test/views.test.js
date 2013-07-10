@@ -31,9 +31,11 @@ describe('views/', function() {
       });
       $('textarea[name="assertion"]').text().should.equal(JSON.stringify({ hi: 'there' }));
     });
+  });
 
+  describe('response.html', function() {
     it('should show spec version if valid', function() {
-      var $ = render('index.html', {
+      var $ = render('response.html', {
         response: {
           status: 'valid',
           info: {
@@ -47,7 +49,7 @@ describe('views/', function() {
     });
   
     it('should show error reason if invalid', function() {
-      var $ = render('index.html', {
+      var $ = render('response.html', {
         response: {
           status: 'invalid',
           reason: 'asplosions'
@@ -59,7 +61,7 @@ describe('views/', function() {
     });
 
     it('should dump pretty-printed response object onto page', function() {
-      var $ = render('index.html', {
+      var $ = render('response.html', {
         response: { status: 'whatever' }
       });
       $('.response').text().should.equal(filters.pprint({ status: 'whatever' }));
