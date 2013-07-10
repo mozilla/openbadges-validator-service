@@ -1,0 +1,55 @@
+<!DOCTYPE html> <!-- 🍕 -->
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width" />
+  <title>OpenBadges Metadata Validator</title>
+  <link rel="stylesheet" href="css/normalize.css" />
+  <link rel="stylesheet" href="css/foundation.css" />
+  <link rel="stylesheet" href="css/app.css" />
+</head>
+<body>
+
+  <div class="row">
+    <div class="large-12 columns">
+      <h1>OpenBadges Metadata Validator</h1>
+      <hr />
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="large-12 columns">
+      <form id="js-assertion-form" method="post" action="/">
+      {% if assertion %}
+        <textarea class="assertion" name="assertion" placeholder="paste your assertion here">{{ assertion|pprint }}</textarea>
+      {% else %}
+        <textarea class="assertion" name="assertion" placeholder="paste your assertion here">{{ assertionString }}</textarea>
+      {% endif %}
+        <input class="button radius" type="submit" value="Check Validity">
+      </form>
+    </div>
+  </div>
+
+  {% if response %}
+  <div class="row" id="js-result-container">
+    <div class="large-12 columns">
+      <h2 class="status {{ response.status }}">{{ response.status|capitalize }}</h2>
+
+      {% if valid %}
+        <h3 class="version">Spec Version: {{ response.info.version }}</h3>
+      {% else %}
+        <h3 class="reason">Reason: {{response.reason}}</h3>
+      {% endif %}
+
+      <hr>
+      <textarea class="response js-response">{{ response|pprint }}</textarea>
+    </div>
+    {% endif %}
+
+  </div>
+
+</body>
+</html>
