@@ -16,6 +16,7 @@
     "supertest": "~0.6.0"
   },
   "scripts": {
+    "start": "./bin/openbadges-validator-service.js | ./node_modules/.bin/bunyan",
     "test": "./node_modules/.bin/mocha --reporter spec --check-leaks test/*.test.js"
   },
   "repository": {
