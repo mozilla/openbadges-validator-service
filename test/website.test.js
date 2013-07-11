@@ -1,5 +1,5 @@
 var request = require('supertest');
-var cheerio = require('cheerio');
+var sinon = require('sinon');
 var should = require('should');
 var url = require('url');
 
@@ -17,13 +17,18 @@ describe('Website', function() {
   });
 
   describe('on POST to /', function() {
-    /* TODO: consider mocking validation to simplify */
 
-    it('should return 200 OK with HTML', function(done) {
+    it('should render index.html', function(done) {
+      sinon.spy(app, "render");
       request(app)
         .post('/')
         .expect('Content-Type', /html/)
-        .expect(200, done);
+        .expect(200, function() {
+          app.render.calledOnce.should.be.true;
+          app.render.calledWith('index.html').should.be.true;
+          app.render.restore();
+          done();
+        });
     });
 
     describe('with good assertion', function() {
@@ -32,14 +37,19 @@ describe('Website', function() {
         return JSON.stringify(examples.validAssertion(host));
       }
 
-      it('should show "Valid"', function(done) {
-        var post = request(app)
-          .post('/');
-        post
-          .send({ assertion: goodString(post) })
+      it('should render index.html with info', function(done) {
+        sinon.spy(app, "render");
+
+        var post = request(app).post('/');
+        post.send({ assertion: goodString(post) })
           .expect(200, function(err, res) {
-            var $ = cheerio.load(res.text);
-            $('.status').text().should.match(/\bvalid\b/i);
+            app.render.calledOnce.should.be.true;
+            app.render.firstCall.args[0].should.equal('index.html');
+            app.render.firstCall.args[1].should.have.property('valid', true);
+            app.render.firstCall.args[1].should.have.property('response');
+            app.render.firstCall.args[1].response.should.have.property('status', 'valid');
+            app.render.firstCall.args[1].response.should.have.property('info');
+            app.render.restore();
             done();
           });
       });
@@ -48,13 +58,20 @@ describe('Website', function() {
     describe('with bad assertion', function() {
       var badString = JSON.stringify(examples.validAssertion('NOPESORRY'));
 
-      it('should show "Invalid"', function(done) {
+      it('should render index.html with error', function(done) {
+        sinon.spy(app, "render");
         request(app)
           .post('/')
           .send({ assertion: badString })
           .expect(200, function(err, res) {
-            var $ = cheerio.load(res.text);
-            $('.status').text().should.match(/\binvalid\b/i);
+            app.render.calledOnce.should.be.true;
+            app.render.firstCall.args[0].should.equal('index.html');
+            app.render.firstCall.args[1].should.have.property('valid', false);
+            app.render.firstCall.args[1].should.have.property('response');
+            app.render.firstCall.args[1].response.should.have.property('status', 'invalid');
+            app.render.firstCall.args[1].response.should.have.property('error');
+            app.render.firstCall.args[1].response.should.have.property('reason');
+            app.render.restore();
             done();
           });
       });
@@ -62,17 +79,22 @@ describe('Website', function() {
   });
 
   describe('on XHR POST to /', function() {
-    /* TODO: consider mocking validation to simplify */
 
     describe ('with HTML accept header', function() {
 
-      it('should always return 200 OK with HTML', function(done) {
+      it('should render response.html', function(done) {
+        sinon.spy(app, "render");
         request(app)
           .post('/')
           .set('X-Requested-With', 'XMLHttpRequest')
           .set('Accept', 'text/html')
           .expect('Content-Type', /html/)
-          .expect(200, done);
+          .expect(200, function(err, res){
+            app.render.calledOnce.should.be.true;
+            app.render.calledWith('response.html').should.be.true;
+            app.render.restore();
+            done();
+          });
       });
 
     });
@@ -94,7 +116,7 @@ describe('Website', function() {
           return JSON.stringify(examples.validAssertion(host));
         }
 
-        it('should have status:valid and info', function(done) {
+        it('should have valid status and info', function(done) {
           var post = request(app)
             .post('/');
           post
@@ -113,7 +135,7 @@ describe('Website', function() {
       describe('with bad assertion', function() {
         var badString = JSON.stringify(examples.validAssertion('NOPESORRY'));
 
-        it('should have status:invalid, reason, and error', function(done) {
+        it('should have invalid status, reason, and error', function(done) {
           request(app)
             .post('/')
             .set('X-Requested-With', 'XMLHttpRequest')

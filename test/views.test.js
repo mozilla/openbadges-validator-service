@@ -31,6 +31,15 @@ describe('views/', function() {
       });
       $('textarea[name="assertion"]').text().should.equal(JSON.stringify({ hi: 'there' }));
     });
+
+    it('should show status', function() {
+      var $ = render('index.html', {
+        response: {
+          status: 'foo'
+        }
+      });
+      $('.status').text().should.equal('Foo');
+    });
   });
 
   describe('response.html', function() {
