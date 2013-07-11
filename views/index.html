@@ -1,0 +1,47 @@
+<!DOCTYPE html> <!-- 🍕 -->
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width" />
+  <title>OpenBadges Metadata Validator</title>
+  <link rel="stylesheet" href="css/normalize.css" />
+  <link rel="stylesheet" href="css/foundation.css" />
+  <link rel="stylesheet" href="css/app.css" />
+</head>
+<body>
+
+  <div class="row">
+    <div class="large-12 columns">
+      <h1>OpenBadges Metadata Validator</h1>
+      <hr />
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="large-12 columns">
+      <form id="js-assertion-form" method="post" action="/">
+      {% if assertion %}
+        <textarea class="assertion" name="assertion" placeholder="paste your assertion here">{{ assertion|pprint }}</textarea>
+      {% else %}
+        <textarea class="assertion" name="assertion" placeholder="paste your assertion here">{{ assertionString }}</textarea>
+      {% endif %}
+        <input class="button radius" type="submit" value="Check Validity">
+        <img class="spinner" src="/img/loader.gif" />
+      </form>
+    </div>
+  </div>
+
+  <div class="row" id="js-result-container">
+  {% if response %}
+    {% include "response.html" %}
+  {% endif %}
+  </div>
+
+  <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+  <script src="/js/app.js"></script>
+
+</body>
+</html>

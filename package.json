@@ -1,17 +1,26 @@
 {
   "name": "openbadges-validator-service",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "description": "Web frontent for openbadges-validator",
   "main": "app.js",
   "dependencies": {
     "dataurl": "~0.1.0",
     "express": "~3.1.0",
-    "openbadges-validator": "~0.0.21"
+    "openbadges-validator": "~0.0.21",
+    "bunyan": "~0.21.4",
+    "nunjucks": "~0.1.9",
+    "cheerio": "~0.12.0",
+    "sinon": "~1.7.3"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "mocha": "~1.9.0",
+    "should": "~1.2.2",
+    "supertest": "~0.6.0"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "./bin/openbadges-validator-service.js | ./node_modules/.bin/bunyan",
+    "test": "./node_modules/.bin/mocha --reporter spec --check-leaks test/*.test.js"
   },
   "repository": {
     "type": "git",
