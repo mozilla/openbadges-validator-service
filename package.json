@@ -1,6 +1,6 @@
 {
   "name": "openbadges-validator-service",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "private": true,
   "description": "Web frontent for openbadges-validator",
   "main": "app.js",
