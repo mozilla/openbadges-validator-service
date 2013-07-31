@@ -4,9 +4,24 @@ var validator = require('openbadges-validator');
 
 var utils = require('./utils');
 var examples = require('../').examples;
+var keys = require('../').keys;
 
 describe('Examples', function() {
   var app = utils.buildApp();
+
+  describe('at /public-key', function() {
+    it('should return public key', function(done) {
+      request(app)
+        .get('/public-key')
+        .expect(200)
+        .end(function(err, res){
+          if (err)
+            return done(err);
+          res.text.should.equal(keys.public.toString());
+          done();
+        });
+    });
+  });
 
   describe('at /assertion.valid.json', function() {
     var url = '/assertion.valid.json';
