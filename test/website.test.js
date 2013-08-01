@@ -55,6 +55,30 @@ describe('Website', function() {
       });
     });
 
+    describe('with good signature', function() {
+      function goodString(post) {
+        var host = url.parse(post.url).host;
+        return examples.validSignature(host);
+      }
+
+      it('should render index.html with info', function(done) {
+        sinon.spy(app, "render");
+
+        var post = request(app).post('/');
+        post.send({ assertion: goodString(post) })
+          .expect(200, function(err, res) {
+            app.render.calledOnce.should.be.true;
+            app.render.firstCall.args[0].should.equal('index.html');
+            app.render.firstCall.args[1].should.have.property('valid', true);
+            app.render.firstCall.args[1].should.have.property('response');
+            app.render.firstCall.args[1].response.should.have.property('status', 'valid');
+            app.render.firstCall.args[1].response.should.have.property('info');
+            app.render.restore();
+            done();
+          });
+      });
+    });
+
     describe('with bad assertion', function() {
       var badString = JSON.stringify(examples.validAssertion('NOPESORRY'));
 
