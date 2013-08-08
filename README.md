@@ -1,6 +1,4 @@
-[![Build Status](https://travis-ci.org/mozilla/openbadges-validator-service.png)](https://travis-ci.org/mozilla/openbadges-validator-service)
-
-# openbadges-validator-service
+# openbadges-validator-service [![Build Status](https://travis-ci.org/mozilla/openbadges-validator-service.png)](https://travis-ci.org/mozilla/openbadges-validator-service)
 
 This is the Web front-end for [openbadges-validator][].
 
