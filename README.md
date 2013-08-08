@@ -7,7 +7,7 @@ This is the Web front-end for [openbadges-validator][].
 ```bash
 $ npm install
 $ npm test
-$ node node bin/openbadges-validatorervice.js
+$ node node bin/openbadges-validator-service.js
 ```
 
 Then visit http://localhost:8888.
