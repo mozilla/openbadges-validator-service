@@ -2,7 +2,7 @@
 
 # openbadges-validator-service
 
-This is the Web front-end for openbadges-validator.
+This is the Web front-end for [openbadges-validator][].
 
 # Quick Start
 
@@ -20,8 +20,11 @@ Then visit http://localhost:8888.
 
 * `NEW_RELIC_HOME` is the optional path to the directory containing
   `newrelic.js`, if you want to integrate with
-  [New Relic](http://newrelic.com/).
+  [New Relic][].
 
 # License
 
 MPL 2.0
+
+  [openbadges-validator]: https://github.com/mozilla/openbadges-validator
+  [New Relic]: http://newrelic.com/
