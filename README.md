@@ -31,6 +31,4 @@ MPL 2.0
 
   [openbadges-validator]: https://github.com/mozilla/openbadges-validator
   [New Relic]: http://newrelic.com/
-
-
   [jscoverage]: https://github.com/visionmedia/node-jscoverage
