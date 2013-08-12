@@ -12,9 +12,7 @@ var initialized = false;
 
 var CUCUMBER_DEBUG = 'ACCEPTANCE_DEBUG' in process.env;
 var CUCUMBER_BROWSER_NAME = process.env.ACCEPTANCE_BROWSER_NAME || 'phantom';
-// For some reason ghostdriver dies on the second test unless we restart phantomjs. This forces
-// that restart until we can figure out what's going wrong.
-var CUCUMBER_RESTART_BROWSER_BETWEEN_TESTS = process.env.ACCEPTANCE_RESTART_BROWSER_BETWEEN_TESTS;
+var CUCUMBER_EXTERNAL_URL = process.env.ACCEPTANCE_EXTERNAL_URL;
 
 process.on('uncaughtException', function(err) {
   console.error(err.stack);
@@ -75,7 +73,8 @@ module.exports = support.fiberize(function() {
     this.app = app;
     this.server = server;
     this.url = function(path) {
-      return url.resolve('http://localhost:' + server.address().port, path);
+      var base = CUCUMBER_EXTERNAL_URL || 'http://localhost:' + server.address().port;
+      return url.resolve(base, path);
     };
     this.answerNextPromptWith = function(response) {
       // We need to do this because phantomjs doesn't support
@@ -94,9 +93,5 @@ module.exports = support.fiberize(function() {
                  (Date.now() - this._scenarioStartTime) + " ms.");
     this.browser.quit();
     this.server.close();
-    if (CUCUMBER_RESTART_BROWSER_BETWEEN_TESTS) {
-      waitFor(support.servers, 'stopAll');
-      initialized = false;
-    }
   });
 });

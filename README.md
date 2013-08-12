@@ -20,6 +20,24 @@ Then visit http://localhost:8888.
   `newrelic.js`, if you want to integrate with
   [New Relic][].
 
+## Acceptance Tests
+
+Acceptance tests are automatically run with `npm test`. Their behavior
+can be changed by the following environment variables:
+
+* `ACCEPTANCE_DEBUG` represents a boolean value. If it exists, logging
+  output will be displayed that makes the tests easier to debug.
+
+* `ACCEPTANCE_BROWSER_NAME` is the name of the browser to use when
+  running the acceptance tests. If this is `phantom` (the default), phantomjs
+  is automatically started and used for browser automation. Otherwise, it's
+  assumed that a [WebDriver][] server is hosted at port 4444 and the
+  `browserName` capability is set to this environment variable.
+
+* `ACCEPTANCE_EXTERNAL_URL` lets you provide an external URL to test instead
+of running against an instance on `localhost`. This is useful to test
+application deployments.
+
 # Test Coverage
 
 Build/install [jscoverage][], run `make test-cov`, then open
