@@ -18,7 +18,7 @@ module.exports = fiberize(function() {
     this.browser.get(this.url('/'));
     this.browser.elementByCss('textarea[name="assertion"]').type(ASSERTIONS[type]);
     this.browser.elementByCss('#js-assertion-form').submit();
-    this.browser.waitForElementByCssSelector('#js-result-container', 15000);
+    this.browser.waitForElementByCssSelector('#js-result-container .status', 15000);
   });
 
   this.Then(/^I expect the validator to report that it's valid$/, function(callback) {
