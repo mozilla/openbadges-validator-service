@@ -18,12 +18,14 @@ var CUCUMBER_RESTART_BROWSER_BETWEEN_TESTS = process.env.ACCEPTANCE_RESTART_BROW
 
 process.on('uncaughtException', function(err) {
   console.error(err.stack);
+  support.Phantom.stopAll();
   support.servers.stopAll(function() {
     process.exit(1);
   });
 });
 
 process.on('exit', function() {
+  support.Phantom.stopAll();
   support.servers.stopAll(function() {});
 });
 
