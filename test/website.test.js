@@ -175,4 +175,20 @@ describe('Website', function() {
       });
     });
   });
+
+  describe('on GET / with query parameters', function() {
+    it('should validate', function(done) {
+      sinon.spy(app, "render");
+      request(app)
+        .get('/?assertion=whatever')
+        .expect(200, function(err, res) {
+          app.render.calledOnce.should.be.true;
+          app.render.firstCall.args[0].should.equal('index.html');
+          app.render.firstCall.args[1].should.have.property('valid', false);
+          app.render.firstCall.args[1].should.have.property('response');
+          app.render.restore();
+          done();
+        });
+    });
+  });
 });
