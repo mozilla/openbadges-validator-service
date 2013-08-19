@@ -29,7 +29,7 @@
   "scripts": {
     "start": "./bin/openbadges-validator-service.js | ./node_modules/.bin/bunyan",
     "start-with-logs": "./bin/openbadges-validator-service.js | ./bin/messina | ./node_modules/.bin/bunyan",
-    "test": "./node_modules/.bin/mocha --reporter spec --check-leaks test/*.test.js"
+    "test": "./node_modules/.bin/mocha --reporter spec --check-leaks test/*.test.js && ./node_modules/.bin/cucumber-js -f pretty"
   },
   "repository": {
     "type": "git",
