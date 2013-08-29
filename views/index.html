@@ -21,7 +21,7 @@
 
   <div class="row">
     <div class="large-12 columns">
-      <form id="js-assertion-form" method="post" action="/{{ '?no_js=1' if NO_JS else '' }}">
+      <form id="js-assertion-form" method="post" action="/">
         <textarea class="assertion" name="assertion"
             placeholder="paste your assertion, assertion URL, or signature here"
             >{{ assertion|pprint if assertion else assertionString }}</textarea>
