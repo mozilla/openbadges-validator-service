@@ -24,7 +24,8 @@
     "wd": "0.0.34",
     "colors": "~0.6.1",
     "fibers": "~1.0.1",
-    "async": "~0.2.9"
+    "async": "~0.2.9",
+    "underscore": "~1.5.1"
   },
   "scripts": {
     "start": "./bin/openbadges-validator-service.js | ./node_modules/.bin/bunyan",
