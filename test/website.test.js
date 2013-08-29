@@ -7,9 +7,9 @@ var utils = require('./utils');
 var examples = require('../').examples;
 
 describe('Website', function() {
-  var app = utils.buildApp();
 
   it('should return 200 OK with HTML at /', function(done) {
+    var app = utils.buildApp();
     request(app)
       .get('/')
       .expect('Content-Type', /html/)
@@ -19,6 +19,7 @@ describe('Website', function() {
   describe('on POST to /', function() {
 
     it('should render index.html', function(done) {
+      var app = utils.buildApp();
       sinon.spy(app, "render");
       request(app)
         .post('/')
@@ -38,10 +39,36 @@ describe('Website', function() {
       }
 
       it('should render index.html with info', function(done) {
+        var app = utils.buildApp();
         sinon.spy(app, "render");
 
         var post = request(app).post('/');
         post.send({ assertion: goodString(post) })
+          .expect(200, function(err, res) {
+            app.render.calledOnce.should.be.true;
+            app.render.firstCall.args[0].should.equal('index.html');
+            app.render.firstCall.args[1].should.have.property('valid', true);
+            app.render.firstCall.args[1].should.have.property('response');
+            app.render.firstCall.args[1].response.should.have.property('status', 'valid');
+            app.render.firstCall.args[1].response.should.have.property('info');
+            app.render.restore();
+            done();
+          });
+      });
+    });
+
+    describe('with good assertion URL', function() {
+      it('should render index.html with info', function(done) {
+        // The muddled app/server distinction always kills me. 
+        // TODO: clean this up
+        var app = utils.buildApp();
+        var server = require('http').createServer(app);
+        server.listen(0);
+        var port = server.address().port;
+        sinon.spy(app, "render");
+
+        var post = request(server).post('/');
+        post.send({ assertion: 'http://localhost:' + port + '/assertion.valid.json' })
           .expect(200, function(err, res) {
             app.render.calledOnce.should.be.true;
             app.render.firstCall.args[0].should.equal('index.html');
@@ -62,6 +89,7 @@ describe('Website', function() {
       }
 
       it('should render index.html with info', function(done) {
+        var app = utils.buildApp();
         sinon.spy(app, "render");
 
         var post = request(app).post('/');
@@ -83,6 +111,7 @@ describe('Website', function() {
       var badString = JSON.stringify(examples.validAssertion('NOPESORRY'));
 
       it('should render index.html with error', function(done) {
+        var app = utils.buildApp();
         sinon.spy(app, "render");
         request(app)
           .post('/')
@@ -107,6 +136,7 @@ describe('Website', function() {
     describe ('with HTML accept header', function() {
 
       it('should render response.html', function(done) {
+        var app = utils.buildApp();
         sinon.spy(app, "render");
         request(app)
           .post('/')
@@ -126,6 +156,7 @@ describe('Website', function() {
     describe('with JSON accept header', function() {
 
       it('should always return 200 OK with JSON', function(done) {
+        var app = utils.buildApp();
         request(app)
           .post('/')
           .set('X-Requested-With', 'XMLHttpRequest')
@@ -141,6 +172,7 @@ describe('Website', function() {
         }
 
         it('should have valid status and info', function(done) {
+          var app = utils.buildApp();
           var post = request(app)
             .post('/');
           post
@@ -160,6 +192,7 @@ describe('Website', function() {
         var badString = JSON.stringify(examples.validAssertion('NOPESORRY'));
 
         it('should have invalid status, reason, and error', function(done) {
+          var app = utils.buildApp();
           request(app)
             .post('/')
             .set('X-Requested-With', 'XMLHttpRequest')
@@ -178,6 +211,7 @@ describe('Website', function() {
 
   describe('on GET / with query parameters', function() {
     it('should validate', function(done) {
+      var app = utils.buildApp();
       sinon.spy(app, "render");
       request(app)
         .get('/?assertion=whatever')
