@@ -40,6 +40,20 @@ describe('views/', function() {
       });
       $('.status').text().should.equal('Foo');
     });
+
+    it('should not render scripts when NO_JS is set', function() {
+      var $ = render('index.html', {
+        NO_JS: true
+      });
+      $('script').length.should.equal(0);
+    });
+
+    it('should add ?no_js=1 to action when set', function() {
+      var $ = render('index.html', {
+        NO_JS: true
+      });
+      $('form').attr('action').should.include('?no_js=1');
+    });
   });
 
   describe('response.html', function() {
