@@ -20,6 +20,33 @@ Then visit http://localhost:8888.
   `newrelic.js`, if you want to integrate with
   [New Relic][].
 
+## API
+
+A simple CORS-enabled API is exposed by the validator.
+
+### `POST /`
+
+Returns the `openbadges-validator` [info object][].
+
+#### Request Parameters
+
+* **assertion**: An assertion url, JSON metadata object, or signature
+
+#### Response
+
+Successful requests will include
+
+* `status`: `"valid"`
+* `info`: The [info object][]
+
+Errors will include
+
+* `status`: `"invalid"`
+* `reason`: Brief description of cause
+* `error`: Detailed error info
+
+[info object]: https://github.com/mozilla/openbadges-validator#validatorthing-callback
+
 ## Acceptance Tests
 
 Acceptance tests are automatically run with `npm test`. Their behavior
