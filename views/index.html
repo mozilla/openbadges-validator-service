@@ -19,15 +19,12 @@
     </div>
   </div>
 
-
   <div class="row">
     <div class="large-12 columns">
       <form id="js-assertion-form" method="post" action="/">
-      {% if assertion %}
-        <textarea class="assertion" name="assertion" placeholder="paste your assertion or signature here">{{ assertion|pprint }}</textarea>
-      {% else %}
-        <textarea class="assertion" name="assertion" placeholder="paste your assertion or signature here">{{ assertionString }}</textarea>
-      {% endif %}
+        <textarea class="assertion" name="assertion"
+            placeholder="paste your assertion, assertion URL, or signature here"
+            >{{ assertion|pprint if assertion else assertionString }}</textarea>
         <input class="button radius" type="submit" value="Check Validity">
         <img class="spinner" src="/img/loader.gif" />
       </form>
