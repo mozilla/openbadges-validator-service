@@ -2,7 +2,7 @@
 
 This is the Web front-end for [openbadges-validator][].
 
-# Quick Start
+## Quick Start
 
 ```bash
 $ npm install
@@ -12,7 +12,7 @@ $ node bin/openbadges-validator-service.js
 
 Then visit http://localhost:8888.
 
-# Environment Variables
+## Environment Variables
 
 * `PORT` is the port to serve the Web application on. Defaults to 8888.
 
@@ -38,12 +38,12 @@ can be changed by the following environment variables:
 of running against an instance on `localhost`. This is useful to test
 application deployments.
 
-# Test Coverage
+## Test Coverage
 
 Build/install [jscoverage][], run `make test-cov`, then open
 `coverage.html` in a browser.
 
-# License
+## License
 
 MPL 2.0
 
