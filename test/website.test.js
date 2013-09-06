@@ -33,6 +33,7 @@ describe('Website', function() {
     });
 
     it('should enable CORS', function(done) {
+      var app = utils.buildApp();
       request(app)
         .post('/')
         .expect('Access-Control-Allow-Origin', '*')
