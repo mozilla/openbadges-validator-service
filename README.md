@@ -22,7 +22,8 @@ Then visit http://localhost:8888.
 
 ## API
 
-A simple CORS-enabled API is exposed by the validator.
+A simple CORS-enabled API is exposed by the validator. Requests should be made
+with a `Accept: application/json` header to receive the data as JSON.
 
 ### `POST /`
 
@@ -34,12 +35,12 @@ Returns the `openbadges-validator` [info object][].
 
 #### Response
 
-Successful requests will include
+Successful requests will include:
 
 * `status`: `"valid"`
 * `info`: The [info object][]
 
-Errors will include
+Errors will include:
 
 * `status`: `"invalid"`
 * `reason`: Brief description of cause
