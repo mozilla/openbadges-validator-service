@@ -32,6 +32,14 @@ describe('Website', function() {
         });
     });
 
+    it('should enable CORS', function(done) {
+      var app = utils.buildApp();
+      request(app)
+        .post('/')
+        .expect('Access-Control-Allow-Origin', '*')
+        .expect(200, done);
+    });
+
     describe('with good assertion', function() {
       function goodString(post) {
         var host = url.parse(post.url).host;

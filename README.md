@@ -2,7 +2,7 @@
 
 This is the Web front-end for [openbadges-validator][].
 
-# Quick Start
+## Quick Start
 
 ```bash
 $ npm install
@@ -12,13 +12,41 @@ $ node bin/openbadges-validator-service.js
 
 Then visit http://localhost:8888.
 
-# Environment Variables
+## Environment Variables
 
 * `PORT` is the port to serve the Web application on. Defaults to 8888.
 
 * `NEW_RELIC_HOME` is the optional path to the directory containing
   `newrelic.js`, if you want to integrate with
   [New Relic][].
+
+## API
+
+A simple CORS-enabled API is exposed by the validator. Requests should be made
+with a `Accept: application/json` header to receive the data as JSON.
+
+### `POST /`
+
+Returns the `openbadges-validator` [info object][].
+
+#### Request Parameters
+
+* **assertion**: An assertion url, JSON metadata object, or signature
+
+#### Response
+
+Successful requests will include:
+
+* `status`: `"valid"`
+* `info`: The [info object][]
+
+Errors will include:
+
+* `status`: `"invalid"`
+* `reason`: Brief description of cause
+* `error`: Detailed error info
+
+[info object]: https://github.com/mozilla/openbadges-validator#validatorthing-callback
 
 ## Acceptance Tests
 
@@ -38,12 +66,12 @@ can be changed by the following environment variables:
 of running against an instance on `localhost`. This is useful to test
 application deployments.
 
-# Test Coverage
+## Test Coverage
 
 Build/install [jscoverage][], run `make test-cov`, then open
 `coverage.html` in a browser.
 
-# License
+## License
 
 MPL 2.0
 
