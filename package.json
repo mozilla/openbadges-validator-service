@@ -21,11 +21,12 @@
     "sinon": "~1.7.3",
     "supertest": "~0.6.0",
     "cucumber": "~0.3.1",
-    "wd": "0.0.34",
+    "wd": "0.2.2",
     "colors": "~0.6.1",
     "fibers": "~1.0.1",
     "async": "~0.2.9",
-    "underscore": "~1.5.1"
+    "underscore": "~1.5.1",
+    "phantomjs": "~1.9.2-5"
   },
   "scripts": {
     "start": "./bin/openbadges-validator-service.js | ./node_modules/.bin/bunyan",

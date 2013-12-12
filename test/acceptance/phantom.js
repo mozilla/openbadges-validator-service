@@ -20,7 +20,7 @@ module.exports = function Phantom(port) {
       subprocess.stdout.on('data', function(data){
         console.log('PHANTOMJS STDOUT:', data.toString());
       });
-      subprocess.stderr.on('data', function(){
+      subprocess.stderr.on('data', function(data){
         console.log('PHANTOMJS STDERR:', data.toString());
       });
     }
