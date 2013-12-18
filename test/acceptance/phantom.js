@@ -13,7 +13,7 @@ module.exports = function Phantom(port) {
   self.name = 'phantomjs';
   self.url = 'http://localhost:' + port + '/status';
   self.startServer = function(cb) {
-    var subprocess = spawn('phantomjs', ['--webdriver=' + port], {
+    var subprocess = spawn('./node_modules/.bin/phantomjs', ['--webdriver=' + port], {
       stdio: DEBUG ? 'pipe' : 'ignore'
     });
     if (DEBUG) {
