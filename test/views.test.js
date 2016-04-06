@@ -62,7 +62,9 @@ describe('views/', function() {
         response: {
           status: 'valid',
           info: {
-            version: 'XXX'
+            parse: {
+              version: 'XXX'
+            }
           }
         }, 
         valid: true
