@@ -2,7 +2,7 @@
   <h2 class="status {{ response.status }}">{{ response.status|capitalize }}</h2>
 
   {% if valid %}
-    <h3 class="version">Spec Version: {{ response.info.version }}</h3>
+    <h3 class="version">Spec Version: {{ response.info.parse.version }}</h3>
   {% else %}
     <h3 class="reason">Reason: {{response.reason}}</h3>
   {% endif %}
